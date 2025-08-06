@@ -17,7 +17,7 @@ Installation Instructions
 ## Usage
 Open the application in your browser and interact with the various security modules.
 
-##Contributing
+## Contributing
 Feel free to fork the repository and submit pull requests for any improvements or features.
 
 ## License
