@@ -1,10 +1,134 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Cybersecurity Monitoring Loop</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #00ff00;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid #00ff00;
+            padding: 20px;
+            background: rgba(0, 255, 0, 0.1);
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .security-module {
+            border: 1px solid #00ff00;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .security-module::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff00, transparent);
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .threat-log {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ff0000;
+            padding: 10px;
+            background: rgba(255, 0, 0, 0.1);
+            font-size: 12px;
+        }
+
+        .input-section {
+            margin: 20px 0;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            margin: 5px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: rgba(0, 255, 0, 0.4);
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-secure { background: #00ff00; }
+        .status-threat { background: #ff0000; }
+        .status-warning { background: #ffff00; }
+
+        .encryption-display {
+            font-family: monospace;
+            font-size: 10px;
+            word-break: break-all;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #00ff00;
+        }
+
+        .loop-counter {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border: 1px solid #00ff00;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -12,18 +136,341 @@
             <h1>🔒 ADVANCED CYBERSECURITY MONITORING LOOP 🔒</h1>
             <p>Real-time threat detection & prevention system</p>
         </div>
+
         <div class="loop-counter">
             <div>Security Loop: <span id="loopCount">0</span></div>
             <div>Threats Blocked: <span id="threatsBlocked">0</span></div>
         </div>
+
         <div class="security-grid">
-            <!-- Modules Placeholder -->
+            <!-- XSS Protection Module -->
+            <div class="security-module">
+                <h3>🛡️ XSS Protection Engine</h3>
+                <div class="input-section">
+                    <input type="text" id="xssInput" placeholder="Enter text to sanitize..." />
+                    <button onclick="sanitizeInput()">Sanitize</button>
+                </div>
+                <div id="xssResult"></div>
+                <div id="xssThreats"></div>
+            </div>
+
+            <!-- Input Validation Module -->
+            <div class="security-module">
+                <h3>🔍 Advanced Input Validation</h3>
+                <div class="input-section">
+                    <input type="text" id="validationInput" placeholder="Enter data to validate..." />
+                    <button onclick="validateInput()">Validate</button>
+                </div>
+                <div id="validationResult"></div>
+            </div>
+
+            <!-- Encryption Module -->
+            <div class="security-module">
+                <h3>🔐 Real-time Encryption</h3>
+                <div class="input-section">
+                    <input type="text" id="encryptInput" placeholder="Text to encrypt..." />
+                    <button onclick="encryptData()">Encrypt</button>
+                </div>
+                <div id="encryptionResult" class="encryption-display"></div>
+            </div>
+
+            <!-- Rate Limiting Module -->
+            <div class="security-module">
+                <h3>⏱️ Rate Limiting Monitor</h3>
+                <div id="rateLimitStatus"></div>
+                <button onclick="simulateRequests()">Test Rate Limit</button>
+            </div>
+
+            <!-- CSRF Protection Module -->
+            <div class="security-module">
+                <h3>🔄 CSRF Token Generator</h3>
+                <div id="csrfToken"></div>
+                <button onclick="generateCSRFToken()">Generate Token</button>
+            </div>
+
+            <!-- Threat Detection Module -->
+            <div class="security-module">
+                <h3>🚨 Threat Detection System</h3>
+                <div class="threat-log" id="threatLog"></div>
+            </div>
         </div>
+
+        <!-- Advanced Security Metrics -->
         <div class="security-module">
             <h3>📊 Security Metrics Dashboard</h3>
             <div id="securityMetrics"></div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        // Advanced Cybersecurity Monitoring System
+        class SecurityMonitor {
+            constructor() {
+                this.loopCount = 0;
+                this.threatsBlocked = 0;
+                this.requestHistory = [];
+                this.csrfTokens = new Map();
+                this.rateLimitWindow = 60000; // 1 minute
+                this.maxRequests = 10;
+                this.threatPatterns = [
+                    /<script[^>]*>.*?<\/script>/gi,
+                    /javascript:/gi,
+                    /on\w+\s*=/gi,
+                    /eval\s*\(/gi,
+                    /expression\s*\(/gi,
+                    /data\s*:/gi
+                ];
+                this.startMonitoring();
+            }
+
+            // Main security loop
+            startMonitoring() {
+                setInterval(() => {
+                    this.loopCount++;
+                    this.performSecurityScan();
+                    this.updateMetrics();
+                    document.getElementById('loopCount').textContent = this.loopCount;
+                }, 1000);
+            }
+
+            // Comprehensive security scan
+            performSecurityScan() {
+                this.scanForXSS();
+                this.validateCurrentInputs();
+                this.checkRateLimits();
+                this.monitorThreats();
+                this.updateCSRFProtection();
+            }
+
+            // XSS Detection and Prevention
+            scanForXSS() {
+                const inputs = document.querySelectorAll('input[type="text"]');
+                inputs.forEach(input => {
+                    if (input.value) {
+                        this.threatPatterns.forEach(pattern => {
+                            if (pattern.test(input.value)) {
+                                this.blockThreat('XSS', Malicious pattern detected: ${pattern.source});
+                                input.value = this.sanitizeString(input.value);
+                            }
+                        });
+                    }
+                });
+            }
+
+            // Advanced string sanitization
+            sanitizeString(str) {
+                return str
+                    .replace(/</g, '<')
+                    .replace(/>/g, '>')
+                    .replace(/"/g, '"')
+                    .replace(/'/g, '&#x27;')
+                    .replace(/\//g, '&#x2F;')
+                    .replace(/javascript:/gi, '')
+                    .replace(/on\w+\s*=/gi, '');
+            }
+
+            // Input validation with multiple checks
+            validateInputData(input) {
+                const checks = {
+                    sqlInjection: /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|UNION)\b)/i,
+                    pathTraversal: /\.\.\/|\.\.\\/g,
+                    commandInjection: /[;&|]/g,
+                    ldapInjection: /[=*()]/g,
+                    xmlInjection: /<!ENTITY|<!DOCTYPE/i
+                };
+
+                const results = {};
+                let isValid = true;
+
+                for (const [checkName, pattern] of Object.entries(checks)) {
+                    if (pattern.test(input)) {
+                        results[checkName] = false;
+                        isValid = false;
+                        this.blockThreat(checkName, Malicious input detected: ${input});
+                    } else {
+                        results[checkName] = true;
+                    }
+                }
+
+                return { isValid, results };
+            }
+
+            // Rate limiting implementation
+            checkRateLimit(identifier) {
+                const now = Date.now();
+                const requests = this.requestHistory.filter(r => 
+                    r.identifier === identifier && 
+                    now - r.timestamp < this.rateLimitWindow
+                );
+
+                if (requests.length >= this.maxRequests) {
+                    this.blockThreat('RateLimit', Too many requests from ${identifier});
+                    return false;
+                }
+
+                this.requestHistory.push({
+                    identifier,
+                    timestamp: now
+                });
+
+                // Clean old requests
+                this.requestHistory = this.requestHistory.filter(r => 
+                    now - r.timestamp < this.rateLimitWindow
+                );
+
+                return true;
+            }
+
+            // Advanced encryption
+            encryptString(text) {
+                // Simple XOR encryption with key rotation
+                const key = 'CyberSecurity2024!';
+                let encrypted = '';
+                
+                for (let i = 0; i < text.length; i++) {
+                    encrypted += String.fromCharCode(
+                        text.charCodeAt(i) ^ key.charCodeAt(i % key.length)
+                    );
+                }
+
+                return btoa(encrypted);
+            }
+
+            // CSRF token generation
+            generateCSRFToken(sessionId) {
+                const token = Array.from(crypto.getRandomValues(new Uint8Array(32)))
+                    .map(b => b.toString(16).padStart(2, '0'))
+                    .join('');
+                
+                this.csrfTokens.set(sessionId, {
+                    token,
+                    timestamp: Date.now(),
+                    used: false
+                });
+
+                return token;
+            }
+
+            // Threat blocking and logging
+            blockThreat(type, details) {
+                this.threatsBlocked++;
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = [${timestamp}] THREAT BLOCKED: ${type} - ${details};
+                
+                this.logThreat(logEntry);
+                document.getElementById('threatsBlocked').textContent = this.threatsBlocked;
+            }
+
+            logThreat(message) {
+                const threatLog = document.getElementById('threatLog');
+                const entry = document.createElement('div');
+                entry.innerHTML = <span class="status-indicator status-threat"></span>${message};
+                threatLog.appendChild(entry);
+                threatLog.scrollTop = threatLog.scrollHeight;
+            }
+
+            // Update security metrics
+            updateMetrics() {
+                const metrics = {
+                    activeConnections: Math.floor(Math.random() * 100),
+                    blockedIPs: Math.floor(this.threatsBlocked / 10),
+                    encryptionOps: this.loopCount * 2,
+                    uptime: Math.floor(this.loopCount / 60),
+                    threatLevel: this.threatsBlocked > 50 ? 'HIGH' : this.threatsBlocked > 20 ? 'MEDIUM' : 'LOW'
+                };
+
+                const metricsDiv = document.getElementById('securityMetrics');
+                metricsDiv.innerHTML = 
+                    <div>Active Connections: ${metrics.activeConnections}</div>
+                    <div>Blocked IPs: ${metrics.blockedIPs}</div>
+                    <div>Encryption Operations: ${metrics.encryptionOps}</div>
+                    <div>Uptime: ${metrics.uptime} minutes</div>
+                    <div>Threat Level: <span style="color: ${metrics.threatLevel === 'HIGH' ? '#ff0000' : metrics.threatLevel === 'MEDIUM' ? '#ffff00' : '#00ff00'}">${metrics.threatLevel}</span></div>
+                ;
+            }
+        }
+
+        // Initialize security system
+        const securitySystem = new SecurityMonitor();
+
+        // UI Functions
+        function sanitizeInput() {
+            const input = document.getElementById('xssInput').value;
+            const sanitized = securitySystem.sanitizeString(input);
+            document.getElementById('xssResult').innerHTML = 
+                <div>Original: ${input}</div>
+                <div>Sanitized: ${sanitized}</div>
+            ;
+        }
+
+        function validateInput() {
+            const input = document.getElementById('validationInput').value;
+            const result = securitySystem.validateInputData(input);
+            const resultsDiv = document.getElementById('validationResult');
+            
+            resultsDiv.innerHTML = 
+                <div>Input: ${input}</div>
+                <div>Valid: ${result.isValid ? 'YES' : 'NO'}</div>
+                <div>Checks: ${JSON.stringify(result.results, null, 2)}</div>
+            ;
+        }
+
+        function encryptData() {
+            const input = document.getElementById('encryptInput').value;
+            const encrypted = securitySystem.encryptString(input);
+            document.getElementById('encryptionResult').innerHTML = 
+                <div>Original: ${input}</div>
+                <div>Encrypted: ${encrypted}</div>
+            ;
+        }
+
+        function simulateRequests() {
+            const identifier = 'user_' + Math.floor(Math.random() * 1000);
+            let allowed = 0;
+            let blocked = 0;
+
+            for (let i = 0; i < 15; i++) {
+                if (securitySystem.checkRateLimit(identifier)) {
+                    allowed++;
+                } else {
+                    blocked++;
+                }
+            }
+
+            document.getElementById('rateLimitStatus').innerHTML = 
+                <div>Allowed: ${allowed}</div>
+                <div>Blocked: ${blocked}</div>
+            ;
+        }
+
+        function generateCSRFToken() {
+            const sessionId = 'session_' + Date.now();
+            const token = securitySystem.generateCSRFToken(sessionId);
+            document.getElementById('csrfToken').innerHTML = 
+                <div>Token: ${token}</div>
+                <div>Session: ${sessionId}</div>
+            ;
+        }
+
+        // Additional security features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Monitor all inputs in real-time
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', function() {
+                    securitySystem.scanForXSS();
+                });
+            });
+
+            // Prevent right-click context menu
+            document.addEventListener('contextmenu', e => e.preventDefault());
+
+            // Disable F12 and other developer tools shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
