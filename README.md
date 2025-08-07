@@ -9,7 +9,7 @@ This is a real-time browser-based cybersecurity monitoring simulation that demon
 - Threat detection and blocking
 
 ## 🔧 Technologies Used
-- HTML, CSS, JavaScript (Vanilla)
+- HTML, CSS, JavaScript 
 - Simulated security engine
 
 ## 📁 Project Structure
@@ -25,5 +25,3 @@ This is a real-time browser-based cybersecurity monitoring simulation that demon
 ## 🙌 Author
 Created by **Satnam Singh**
 
----
-*This project is a simulation meant for educational purposes.*
