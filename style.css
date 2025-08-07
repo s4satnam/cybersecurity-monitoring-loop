@@ -1,0 +1,36 @@
+/* Externalized CSS for clean structure */
+body {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    color: #00ff00;
+    padding: 20px;
+    margin: 0;
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+.header {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #00ff00;
+    background: rgba(0, 255, 0, 0.1);
+}
+.security-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+.security-module {
+    border: 1px solid #00ff00;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+}
+.loop-counter {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border: 1px solid #00ff00;
+}

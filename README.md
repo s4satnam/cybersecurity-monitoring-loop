@@ -1,21 +1,29 @@
-# Advanced Cybersecurity Monitoring Loop
+# 🔒 Advanced Cybersecurity Monitoring Loop
 
-A web application for real-time threat detection and prevention, featuring modules for XSS protection, input validation, encryption, rate limiting, and CSRF token generation.
+This is a real-time browser-based cybersecurity monitoring simulation that demonstrates core security principles such as:
+- XSS protection
+- Input validation
+- CSRF token generation
+- Rate limiting
+- Real-time encryption
+- Threat detection and blocking
 
-## Features
-XSS Protection Engine: Sanitizes user input to prevent cross-site scripting attacks.
-Advanced Input Validation**: Validates user data against multiple security checks.
-Real-time Encryption**: Encrypts sensitive data using a simple XOR encryption method.
-Rate Limiting Monitor**: Simulates and monitors request rates to prevent abuse.
-CSRF Token Generator**: Generates secure tokens to protect against cross-site request forgery.
-Threat Detection System**: Logs and displays detected threats in real-time.
+## 🔧 Technologies Used
+- HTML, CSS, JavaScript (Vanilla)
+- Simulated security engine
 
-Installation Instructions
-1. Clone the repository: `git clone https://github.com/your_username/advanced-cybersecurity-monitoring-loop.git`
-2. Open the `index.html` file in your web browser.
+## 📁 Project Structure
+- `index.html` – Main UI and structure
+- `style.css` – Styling and responsive layout
+- `script.js` – Security logic and simulation
 
-## Usage
-Open the application in your browser and interact with the various security modules.
+## 🚀 How to Run
+1. Download the project ZIP and extract it.
+2. Open `index.html` in any web browser.
+3. All modules are client-side and require no backend.
 
-## Contributing
-Feel free to fork the repository and submit pull requests for any improvements or features.
+## 🙌 Author
+Created by **Satnam Singh**
+
+---
+*This project is a simulation meant for educational purposes.*
